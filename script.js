@@ -442,61 +442,81 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function getUserCity() {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    const lat = position.coords.latitude;
-                    const lon = position.coords.longitude;
-
-                    fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`)
-                        .then(response => response.json())
-                        .then(data => {
-                            const city = data.address.city || data.address.town || 'Неизвестный город';
-                            document.getElementById('user-city').textContent = city;
-                        })
-                        .catch(error => {
-                            console.error('Error fetching city:', error);
-                        });
-                },
-                (error) => {
-                    console.error('Error getting location:', error);
-                }
-            );
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+              const lat = position.coords.latitude;
+              const lon = position.coords.longitude;
+      
+              fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`)
+                .then(response => response.json())
+                .then(data => {
+                  const city = data.address.city || data.address.town || 'Неизвестный город';
+                  document.getElementById('user-city').textContent = city;
+                  selectCityInPopup(city); // Новая функция для выделения города в popup
+                })
+                .catch(error => {
+                  console.error('Error fetching city:', error);
+                });
+            },
+            (error) => {
+              console.error('Error getting location:', error);
+            }
+          );
         } else {
-            console.error('Geolocation is not supported by this browser.');
+          console.error('Geolocation is not supported by this browser.');
         }
-    }
+      }
+      
+      function selectCityInPopup(city) {
+        const cityItems = document.querySelectorAll('.city-list li');
+        cityItems.forEach(item => {
+          if (item.textContent.includes(city)) {
+            item.classList.add('selected');
+          } else {
+            item.classList.remove('selected');
+          }
+        });
+      }
+      
+      getUserCity();
 
-    getUserCity();
+    document.querySelector('.navbar-location-wrapper').addEventListener('click', function () {
+        const popup = document.getElementById('city-popup');
+        popup.classList.add('show');
+        document.documentElement.classList.add('no-scroll'); // Добавляем класс 'no-scroll' к <html>
+    });
 
-document.querySelector('.navbar-location-wrapper').addEventListener('click', function() {
-  const popup = document.getElementById('city-popup');
-  popup.classList.add('show');
-  document.documentElement.classList.add('no-scroll'); // Добавляем класс 'no-scroll' к <html>
-});
+    document.querySelector('.popup-close').addEventListener('click', function () {
+        const popup = document.getElementById('city-popup');
+        popup.classList.add('hide');
+        document.documentElement.classList.remove('no-scroll'); // Удаляем класс 'no-scroll' из <html>
+        setTimeout(function () {
+            popup.classList.remove('show', 'hide');
+        }, 300);
+    });
 
-document.querySelector('.popup-close').addEventListener('click', function() {
-  const popup = document.getElementById('city-popup');
-  popup.classList.add('hide');
-  document.documentElement.classList.remove('no-scroll'); // Удаляем класс 'no-scroll' из <html>
-  setTimeout(function() {
-    popup.classList.remove('show', 'hide');
-  }, 300);
-});
+    document.querySelector('.city-list').addEventListener('click', function (event) {
+        if (event.target.tagName === 'LI') {
+            const selectedCity = event.target.textContent;
+            document.getElementById('user-city').textContent = selectedCity;
+            const popup = document.getElementById('city-popup');
+            popup.classList.add('hide');
+            document.documentElement.classList.remove('no-scroll'); // Удаляем класс 'no-scroll' из <html>
+            setTimeout(function () {
+                popup.classList.remove('show', 'hide');
+            }, 300);
+        }
+    });
 
-document.querySelector('.city-list').addEventListener('click', function(event) {
-  if (event.target.tagName === 'LI') {
-    const selectedCity = event.target.textContent;
-    document.getElementById('user-city').textContent = selectedCity;
-    const popup = document.getElementById('city-popup');
-    popup.classList.add('hide');
-    document.documentElement.classList.remove('no-scroll'); // Удаляем класс 'no-scroll' из <html>
-    setTimeout(function() {
-      popup.classList.remove('show', 'hide');
-    }, 300);
-  }
-});
-
-
-
+    const cityList = document.querySelector('.city-list');
+    const cityItems = cityList.querySelectorAll('li');
+    
+    cityItems.forEach(item => {
+      item.addEventListener('click', () => {
+        cityItems.forEach(item => item.classList.remove('selected'));
+        item.classList.add('selected');
+        // Здесь можно добавить логику для обновления информации о выбранном городе
+      });
+    });
 
 });

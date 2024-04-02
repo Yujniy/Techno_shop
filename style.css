@@ -2676,10 +2676,38 @@ body {
 
 .no-scroll {
   overflow: hidden;
-  padding-right: 16px;
+  padding-right: 0; /* Убираем отступ справа */
+}
+
+@media (min-width: 768px) {
+  .no-scroll {
+    padding-right: 16px; /* Восстанавливаем отступ справа только для настольных устройств */
+  }
+}
+.city-list li.selected {
+  color: #ed5aae; /* Цвет подсветки для выбранного города */
 }
 
 
 .navbar-location-wrapper {
   cursor: pointer;
 }
+
+@media (max-width: 767px) {
+  .popup-content {
+    width: 100%;
+    height: 100vh;
+    max-height: 100vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0;
+  }
+
+  .city-list {
+    columns: 1;
+    flex-grow: 1;
+    overflow-y: auto;
+  }
+}
+
