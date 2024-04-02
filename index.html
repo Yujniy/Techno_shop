@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tecko shop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+    rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <link rel="stylesheet" href="./style.css">
+</head>
+<style>
+
+</style>
+
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-center">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Ноутбуки</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Смартфоны</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Часы</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Аксесуары</a>
+          </li>
+        </ul>
+        <div class="navbar-location-wrapper">
+          <img src="./img/location.svg" alt="Location" class="navbar-location">
+          <span id="user-city"></span>
+        </div>
+      </div>
+      <img src="./img/loupe.svg" alt="Search" class="navbar-loupe">
+      <img src="./img/cart.svg" alt="Cart" class="navbar-cart">
+    </div>
+  </nav>
+
+<div id="city-popup" class="popup">
+  <div class="popup-content">
+    <img src="img/close.svg" alt="Close" class="popup-close">
+    <h2 class="popup-title">Выберите город</h2>
+    <ul class="city-list">
+      <li>Москва и область</li>
+      <li>Санкт-Петербург и ЛО</li>
+      <li>Барнаул</li>
+      <li>Владивосток</li>
+      <li>Воронеж</li>
+      <li>Екатеринбург</li>
+      <li>Иркутск</li>
+      <li>Казань</li>
+      <li>Кемерово</li>
+      <li>Краснодар</li>
+      <li>Красноярск</li>
+      <li>Нижний Новгород</li>
+      <li>Новокузнецк</li>
+      <li>Новосибирск</li>
+      <li>Омск</li>
+      <li>Пермь</li>
+      <li>Ростов-на-Дону</li>
+      <li>Самара</li>
+      <li>Сочи</li>
+      <li>Сургут</li>
+      <li>Томск</li>
+      <li>Тюмень</li>
+      <li>Уфа</li>
+      <li>Хабаровск</li>
+      <li>Челябинск</li>
+    </ul>
+  </div>
+</div>
+
+
+  <div class="first-block">
+    <div class="rectangle">
+      <img src="./img/Iphone-main-block.png" alt="Iphone 13 Pro Max" class="rectangle-image">
+      <p class="rectangle-text">Apple iPhone 13 Pro Max</p>
+      <p class="rectangle-text-description">Дисплей Super Retina XDR с технологией ProMotion и быстрым, плавным
+        откликом. Грандиозный апгрейд системы камер, открывающий совершенно новые возможности.</p>
+      <button class="buy-button">Купить</button>
+    </div>
+    <div class="rectangle-container">
+      <div class="second-rectangle">
+        <p class="second-rectangle-text">Беспроцентная рассрочка</p>
+        <p class="second-rectangle-description">Беспроцентная рассрочка
+          в любом удобном для вас банке!</p>
+        <button class="second-rectangle-button">В каталог</button>
+      </div>
+
+      <div class="third-rectangle">
+        <p class="third-rectangle-text">Доставка по всей России</p>
+        <p class="third-rectangle-description">Отправляем почтой, СДЭК, Boxberry по всей России более 700 отправок в
+          месяц!</p>
+        <button class="third-rectangle-button">Подробнее</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="popular-products">
+    <h2 class="popular-products-title">Популярные товары</h2>
+    <div class="circle-container">
+      <div class="circle circle-left">
+        <img src="./img/Slider_arrow.svg" alt="Arrow" class="circle-image">
+      </div>
+      <div class="circle">
+        <img src="./img/Slider_arrow.svg" alt="Arrow" class="circle-image">
+      </div>
+    </div>
+
+    <div class="swiper realme-slider">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <div class="realme-card">
+            <div class="realme-card-box">
+              <p class="realme-text">Смартфон realme C25S 4</p>
+              <img src="img/realme.jpg" alt="Realme" class="realme-img">
+              <div class="realme-price-container">
+                <p class="realme-price">Цена</p>
+                <p class="realme-price-value">12 490 ₽</p>
+              </div>
+              <button class="realme-buy-button">Купить</button>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="realme-card">
+            <div class="Apple-Watch-card-box">
+              <p class="realme-text" style="width: 300px;">Умные часы Apple Watch Series 7</p>
+              <img src="img/apple_watch.png" alt="Realme" class="realme-img">
+              <div class="realme-price-container">
+                <p class="realme-price">Цена</p>
+                <p class="realme-price-value">40 990 ₽</p>
+              </div>
+              <button class="realme-buy-button">Купить</button>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="realme-card">
+            <div class="Honor-Magicbook-card-box">
+              <p class="realme-text" style="width: 280px;">Ноутбук Honor Magicbook X 15 BBR-WAH9</p>
+              <img src="img/honor_magicbook.png" alt="Realme" class="realme-img">
+              <div class="realme-price-container">
+                <p class="realme-price">Цена</p>
+                <p class="realme-price-value">50 820 ₽</p>
+              </div>
+              <button class="realme-buy-button">Купить</button>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="realme-card">
+            <div class="Apple-Airpods-card-box">
+              <p class="realme-text" style="width: 180px;">Apple airpods pro 2</p>
+              <img src="img/airpods.png" alt="Realme" class="realme-img">
+              <div class="realme-price-container">
+                <p class="realme-price">Цена</p>
+                <p class="realme-price-value">31 990 ₽</p>
+              </div>
+              <button class="realme-buy-button">Купить</button>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="realme-card">
+            <div class="coming-soon-card">
+              <p>Карточка в разработке, товар скоро появится</p>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="realme-card">
+            <div class="coming-soon-card">
+              <p>Карточка в разработке, товар скоро появится</p>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="realme-card">
+            <div class="coming-soon-card">
+              <p>Карточка в разработке, товар скоро появится</p>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="realme-card">
+            <div class="coming-soon-card">
+              <p>Карточка в разработке, товар скоро появится</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="swiper realme-slider-mobile">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <div class="realme-card">
+            <div class="realme-card-box">
+              <p class="realme-text">Смартфон realme C25S 4</p>
+              <img src="img/realme.jpg" alt="Realme" class="realme-img">
+              <div class="realme-price-container">
+                <p class="realme-price">Цена</p>
+                <p class="realme-price-value">12 490 ₽</p>
+              </div>
+              <button class="realme-buy-button">Купить</button>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="realme-card">
+            <div class="Apple-Watch-card-box">
+              <p class="realme-text" style="width: 300px;">Умные часы Apple Watch Series 7</p>
+              <img src="img/apple_watch.png" alt="Realme" class="realme-img">
+              <div class="realme-price-container">
+                <p class="realme-price">Цена</p>
+                <p class="realme-price-value">40 990 ₽</p>
+              </div>
+              <button class="realme-buy-button">Купить</button>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="realme-card">
+            <div class="Honor-Magicbook-card-box">
+              <p class="realme-text" style="width: 280px;">Ноутбук Honor Magicbook X 15 BBR-WAH9</p>
+              <img src="img/honor_magicbook.png" alt="Realme" class="realme-img">
+              <div class="realme-price-container">
+                <p class="realme-price">Цена</p>
+                <p class="realme-price-value">50 820 ₽</p>
+              </div>
+              <button class="realme-buy-button">Купить</button>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="realme-card">
+            <div class="Apple-Airpods-card-box">
+              <p class="realme-text" style="width: 180px;">Apple airpods pro 2</p>
+              <img src="img/airpods.png" alt="Realme" class="realme-img">
+              <div class="realme-price-container">
+                <p class="realme-price">Цена</p>
+                <p class="realme-price-value">31 990 ₽</p>
+              </div>
+              <button class="realme-buy-button">Купить</button>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="realme-card">
+            <div class="coming-soon-card">
+              <p>Карточка в разработке, товар скоро появится</p>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="realme-card">
+            <div class="coming-soon-card">
+              <p>Карточка в разработке, товар скоро появится</p>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="realme-card">
+            <div class="coming-soon-card">
+              <p>Карточка в разработке, товар скоро появится</p>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="realme-card">
+            <div class="coming-soon-card">
+              <p>Карточка в разработке, товар скоро появится</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="catalog">
+      <div class="nameBlock">
+        <!-- Каталог -->
+        Каталог
+      </div>
+      <div class="catalogButton">
+        <!-- Кнопки (Табы) -->
+        <a href="#" class="active">Смартфоны</a>
+        <a href="#">Ноутбуки</a>
+        <a href="#">Часы</a>
+        <a href="#">Аксесуары</a>
+      </div>
+
+      <div class="development-message development-message-tabs">Раздел в разработке, зайдите позже!</div>
+
+
+      <div class="product-rectangle-container desktop-only ">
+        <div class="Iphone product-rectangle">
+          <span class="iphone-text">Apple iPhone 13 Pro Max</span>
+          <span class="iphone-memory">Объем памяти</span>
+          <div class="memory-options">
+            <div class="memory-option" data-price="250000">256 Гб</div>
+            <div class="memory-option active" data-price="290000">512 Гб</div>
+          </div>
+          <div class="color-text">
+            <span class="color-label">Цвет:</span>
+            <span class="color-name">небесно-голубой</span>
+          </div>
+          <div class="color-circles">
+            <div class="color-circle active" data-color="sky-blue" style="background: rgb(204, 224, 240);"></div>
+            <div class="color-circle" data-color="green" style="background: rgb(82, 95, 79);"></div>
+            <div class="color-circle" data-color="black" style="background: rgb(25, 24, 22);"></div>
+          </div>
+          <img src="img/Iphone_card.png" alt="iPhone 13 Pro Max" class="iphone-img">
+          <div class="iphone-price-container">
+            <p class="iphone-price">Цена</p>
+            <p class="iphone-price-value" id="iphone-price-value">290 000 ₽</p>
+          </div>
+          <button class="iphone-buy-button">Купить</button>
+        </div>
+
+        <div class="Vivo product-rectangle">
+          <span class="Vivo-text">Смартфон Vivo T1 6</span>
+          <span class="Vivo-memory">Объем памяти</span>
+          <div class="memory-options">
+            <div class="memory-option active" data-price="15242₽">128 ГБ</div>
+            <div class="memory-option" data-price="20500₽">256 ГБ</div>
+          </div>
+          <div class="color-text">
+            <span class="color-label">Цвет:</span>
+            <span class="color-name">голубой</span>
+          </div>
+          <div class="color-circles">
+            <div class="color-circle active" data-color="sky-blue" style="background: rgb(163, 188, 255);"></div>
+            <div class="color-circle" data-color="green" style="background: rgb(25, 24, 22);"></div>
+          </div>
+          <img src="img/Vivo_card.png" alt="iPhone 13 Pro Max" class="Vivo-img">
+          <div class="Vivo-price-container">
+            <p class="Vivo-price">Цена</p>
+            <p class="Vivo-price-value" id="Vivo-price-value">15 242 ₽</p>
+          </div>
+          <button class="Vivo-buy-button">Купить</button>
+        </div>
+
+        <div class="Realme product-rectangle">
+          <span class="Realme-text">Смартфон realme C25S 4</span>
+          <span class="Realme-memory">Объем памяти</span>
+          <div class="memory-options">
+            <div class="memory-option active" data-price="12490">128 ГБ</div>
+            <div class="memory-option" data-price="14590">256 ГБ</div>
+          </div>
+
+          <div class="color-text">
+            <span class="color-label">Цвет:</span>
+            <span class="color-name">темно-синий</span>
+          </div>
+          <div class="color-circles">
+            <div class="color-circle active" data-color="sky-blue" style="background: rgb(0, 71, 255);"></div>
+            <div class="color-circle" data-color="green" style="background: rgb(25, 24, 22);"></div>
+          </div>
+          <img src="img/realme_card.png" alt="iPhone 13 Pro Max" class="Realme-img">
+          <div class="Realme-price-container">
+            <p class="Realme-price">Цена</p>
+            <p class="Realme-price-value" id="Realme-price-value">12 490 ₽</p>
+          </div>
+          <button class="Realme-buy-button">Купить</button>
+        </div>
+
+
+        <div class="Samsung product-rectangle">
+          <span class="Samsung-text">Смартфон Samsung Galaxy S22 Ultra 12</span>
+          <span class="Samsung-memory">Объем памяти</span>
+          <div class="memory-options">
+            <div class="memory-option" data-price="101214">128 ГБ</div>
+            <div class="memory-option active" data-price="104074">256 ГБ</div>
+          </div>
+          <div class="color-text">
+            <span class="color-label">Цвет:</span>
+            <span class="color-name">темно-синий</span>
+          </div>
+          <div class="color-circles">
+            <div class="color-circle active" data-color="sky-blue" style="background: rgb(55, 80, 76);"></div>
+            <div class="color-circle" data-color="green" style="background: rgb(25, 24, 22);"></div>
+          </div>
+          <img src="img/samsung_card.png" alt="iPhone 13 Pro Max" class="Samsung-img">
+          <div class="Samsung-price-container">
+            <p class="Samsung-price">Цена</p>
+            <p class="Samsung-price-value" id="Samsung-price-value">104 074 ₽</p>
+          </div>
+          <button class="Samsung-buy-button">Купить</button>
+        </div>
+        <div class="development-message-block">
+          <p class="development-message">Раздел в разработке, зайдите позже!</p>
+        </div>
+        <button class="show-more-button">Показать больше товаров</button>
+      </div>
+
+      <div class="swiper mobile-product-rectangle-container swiper-container">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide product-rectangle">
+            <div class="iphone-text-container">
+              <span class="iphone-text-slider">Apple iPhone 13 Pro Max</span>
+            </div>
+            <img src="img/Iphone_card.png" alt="iPhone 13 Pro Max" class="iphone-img-slider">
+            <div class="iphone-color-images">
+              <img src="img\Iphone_blue.png" alt="iPhone 13 Pro Max" class="iphone-color-image"
+                data-image="img\Iphone_card.png">
+              <img src="img/iphone_green.png" alt="iPhone 13 Pro Max Green" class="iphone-color-image"
+                data-image="img/iphone_green.png">
+              <img src="img/iphone_purple.png" alt="iPhone 13 Pro Max Purple" class="iphone-color-image"
+                data-image="img/iphone_purple.png">
+            </div>
+            <span class="iphone-memory-slider">Объем памяти</span>
+
+            <div class="memory-options-slider">
+              <div class="memory-option-slider" data-price="250000">256 Гб</div>
+              <div class="memory-option-slider active" data-price="290000">512 Гб</div>
+            </div>
+            <div class="color-text-slider">
+              <span class="color-label-slider">Цвет:</span>
+              <span class="color-name-slider">небесно-голубой</span>
+            </div>
+
+            <div class="color-circles-slider iphone-color-circles-slider">
+              <div class="color-circle-slider active" data-color="sky-blue"></div>
+              <div class="color-circle-slider" data-color="green"></div>
+              <div class="color-circle-slider" data-color="black"></div>
+            </div>
+
+            <div class="iphone-price-container-slider">
+              <p class="iphone-price-slider">Цена</p>
+              <p class="iphone-price-value-slider" id="iphone-price-value">290 000 ₽</p>
+            </div>
+
+            <button class="iphone-buy-button-slider">Купить</button>
+          </div>
+
+          <div class="swiper-slide product-rectangle">
+            <div class="vivo-text-container">
+              <span class="vivo-text-slider">Смартфон Vivo T1 6</span>
+            </div>
+            <img src="img/Vivo_card.png" alt="Vivo T1 6" class="vivo-img-slider">
+            <span class="vivo-memory-slider">Объем памяти</span>
+            <div class="memory-options-slider">
+              <div class="memory-option-slider active" data-price="15242">128 ГБ</div>
+              <div class="memory-option-slider" data-price="20500">256 ГБ</div>
+            </div>
+            <div class="color-text-slider">
+              <span class="color-label-slider">Цвет:</span>
+              <span class="color-name-slider">голубой</span>
+            </div>
+            <div class="color-circles-slider vivo-color-circles-slider">
+              <div class="color-circle-slider color-sky-blue active" data-color="sky-blue"></div>
+              <div class="color-circle-slider color-black" data-color="black"></div>
+            </div>
+            <div class="vivo-price-container-slider">
+              <p class="vivo-price-slider">Цена</p>
+              <p class="vivo-price-value-slider" id="vivo-price-value">15 242 ₽</p>
+            </div>
+            <button class="vivo-buy-button-slider">Купить</button>
+          </div>
+
+
+          <div class="swiper-slide product-rectangle">
+            <div class="realme-text-container">
+              <span class="realme-text-slider">Смартфон realme C25S 4</span>
+            </div>
+            <img src="img/realme_card.png" alt="Realme C25S 4" class="realme-img-slider">
+            <span class="realme-memory-slider">Объем памяти</span>
+            <div class="memory-options-slider">
+              <div class="memory-option-slider active" data-price="12490">128 ГБ</div>
+              <div class="memory-option-slider" data-price="14590">256 ГБ</div>
+            </div>
+            <div class="color-text-slider">
+              <span class="color-label-slider">Цвет:</span>
+              <span class="color-name-slider">темно-синий</span>
+            </div>
+            <div class="color-circles-slider realme-color-circles-slider">
+              <div class="color-circle-slider color-dark-blue active" data-color="dark-blue"></div>
+              <div class="color-circle-slider color-black" data-color="black"></div>
+            </div>
+
+            <div class="realme-price-container-slider">
+              <p class="realme-price-slider">Цена</p>
+              <p class="realme-price-value-slider" id="realme-price-value">12 490 ₽</p>
+            </div>
+            <button class="realme-buy-button-slider">Купить</button>
+          </div>
+
+          <div class="swiper-slide product-rectangle">
+            <div class="samsung-text-container">
+              <span class="samsung-text-slider">Смартфон Samsung Galaxy S22 Ultra 12</span>
+            </div>
+            <img src="img/samsung_card.png" alt="Samsung Galaxy S22 Ultra 12" class="samsung-img-slider">
+            <span class="samsung-memory-slider">Объем памяти</span>
+            <div class="memory-options-slider">
+              <div class="memory-option-slider" data-price="101214">128 ГБ</div>
+              <div class="memory-option-slider active" data-price="104074">256 ГБ</div>
+            </div>
+            <div class="color-text-slider">
+              <span class="color-label-slider">Цвет:</span>
+              <span class="color-name-slider">темно-зеленый</span>
+            </div>
+            <div class="color-circles-slider samsung-color-circles-slider">
+              <div class="color-circle-slider color-dark-green active" data-color="dark-green"></div>
+              <div class="color-circle-slider color-black" data-color="black"></div>
+            </div>
+            <div class="samsung-price-container-slider">
+              <p class="samsung-price-slider">Цена</p>
+              <p class="samsung-price-value-slider" id="samsung-price-value">104 074 ₽</p>
+            </div>
+            <button class="samsung-buy-button-slider">Купить</button>
+          </div>
+        </div>
+
+        <div class="development-message-block">
+          <p class="development-message">Раздел в разработке, зайдите позже!</p>
+        </div>
+        <button class="show-more-button">Показать больше товаров</button>
+      </div>
+
+      <div class="advantages-block">
+        <h2 class="advantages-title">Преимущества</h2>
+        <div class="advantages-container">
+          <div class="advantages-rectangle">
+            <p class="advantage-text">Персональный сервис</p>
+            <p class="advantage-subtext">Абсолютно каждого клиента мы проконсультируем по правильному выбору техники</p>
+          </div>
+          <div class="advantages-rectangle">
+            <p class="advantage-text">Лучшее соотношение «Качество-цена»</p>
+            <p class="advantage-subtext">Мы гарантируем качество каждого товара и твердо нацелены на долгосрочное
+              сотрудничество с каждым клиентом</p>
+          </div>
+          <div class="advantages-rectangle">
+            <p class="advantage-text">Техническая поддержка и Гарантия</p>
+            <p class="advantage-subtext">Мы предоставляем Гарантию 12 месяцев на весь товар на складе</p>
+          </div>
+        </div>
+      </div>
+
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+      <script src="./script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Пример геолокации</title>
+  </head>
+  <body>
+    <p>Нажмите на кнопку, чтобы получить ваше местоположение:</p>
+    <button onclick="getLocation()">Получить местоположение</button>
+    <p id="location"></p>
+    <script>
+      function getLocation() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+          document.getElementById("location").innerHTML =
+            "Geolocation is not supported by this browser.";
+        }
+      }
+
+      function showPosition(position) {
+        fetch(
+          `https://api.opencagedata.com/geocode/v1/json?q=${position.coords.latitude}+${position.coords.longitude}&key=eb50dc01bd4842edb30002dfc1b26c56`
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            const city = data.results[0].components.city;
+            const country = data.results[0].components.country;
+            document.getElementById(
+              "location"
+            ).innerHTML = `City: ${city}, Country: ${country}`;
+          })
+          .catch((error) => console.error(error));
+      }
+    </script>
+  </body>
+</html>

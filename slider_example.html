@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пример слайдера</title>
+    <style>
+        /* Убираем отступы и поля для всего документа */
+        /* Убираем отступы и поля для всего документа */
+        html, body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden; /* Убираем горизонтальный скролл для всего документа */
+        }
+
+        .slider-container {
+            overflow-x: auto; /* Добавляем горизонтальный скролл только для этого контейнера */
+            width: 100vw; /* Устанавливаем ширину равной ширине окна браузера */
+            height: 100vh; /* Высота равна высоте окна браузера */
+        }
+    
+        .slider-block {
+            background-color: black;
+            min-width: 2934px; /* Возвращаем минимальную ширину */
+            height: 100%;
+            display: flex; /* Используем Flexbox для позиционирования */
+            align-items: center; /* Вертикальное центрирование */
+            justify-content: flex-start; /* Выравниваем элементы по левому краю */
+        }
+    
+        .white-rectangle {
+            width: 306px;
+            height: 424px;
+            border-radius: 32px;
+            background: rgb(255, 255, 255);
+            margin-right: 20px; /* Отступ справа для каждого элемента */
+        }
+    
+        .white-rectangle:last-child {
+            margin-right: 0; /* Убираем отступ для последнего элемента */
+        }
+    
+        .orange-block {
+            background-color: orange;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    
+        .center-rectangle {
+            width: 306px;
+            height: 424px;
+            border-radius: 32px;
+            background: rgb(255, 255, 255);
+        }
+
+        .slider-container::-webkit-scrollbar {
+            height: 10px;
+}
+
+
+.slider-container::-webkit-scrollbar-track {
+    background: black; /* Фон скроллбара */
+}
+
+.slider-container::-webkit-scrollbar-thumb {
+    background: white; /* Цвет ползунка */
+    border-radius: 10px; /* Скругление углов */
+}
+
+@media (max-width: 768px) { /* Указываем максимальную ширину экрана для мобильных устройств */
+    .slider-container::-webkit-scrollbar {
+        display: none; /* Скрываем скроллбар */
+    }
+    
+    /* Для Firefox */
+    .slider-container {
+        scrollbar-width: none; /* Скрываем скроллбар */
+    }
+}
+
+/* Стиль для курсора "захвата" */
+.slider-container.active {
+    cursor: grabbing;
+    cursor: -webkit-grabbing;
+}
+
+/* Стиль для курсора при наведении */
+.slider-container {
+    cursor: grab;
+    cursor: -webkit-grab;
+}
+
+    </style>
+    
+</head>
+
+<body>
+    <div class="slider-container">
+        <div class="slider-block">
+            <!-- Повторяем этот блок 10 раз -->
+            <div class="white-rectangle"></div>
+            <div class="white-rectangle"></div>
+            <div class="white-rectangle"></div>
+            <div class="white-rectangle"></div>
+            <div class="white-rectangle"></div>
+            <div class="white-rectangle"></div>
+            <div class="white-rectangle"></div>
+            <div class="white-rectangle"></div>
+            <div class="white-rectangle"></div>
+            <div class="white-rectangle"></div>
+        </div>
+    </div>
+
+    <!-- Добавляем новый блок под основным -->
+    <div class="orange-block">
+        <div class="center-rectangle"></div>
+    </div>
+    <script>
+        // Получаем элемент слайдера
+        const slider = document.querySelector('.slider-container');
+    
+        let isDown = false; // Флаг для отслеживания состояния "зажатия"
+        let startX; // Начальная позиция курсора
+        let scrollLeft; // Начальная позиция скролла
+    
+        // Добавляем обработчики событий для слайдера
+        slider.addEventListener('mousedown', (e) => {
+            isDown = true;
+            slider.classList.add('active');
+            startX = e.pageX - slider.offsetLeft; // Вычисляем начальную позицию курсора относительно слайдера
+            scrollLeft = slider.scrollLeft; // Сохраняем текущую позицию скролла
+        });
+    
+        slider.addEventListener('mouseleave', () => {
+            isDown = false;
+            slider.classList.remove('active');
+        });
+    
+        slider.addEventListener('mouseup', () => {
+            isDown = false;
+            slider.classList.remove('active');
+        });
+    
+        slider.addEventListener('mousemove', (e) => {
+            if (!isDown) return; // Если мышь не зажата, выходим из функции
+            e.preventDefault(); // Предотвращаем выделение текста при перемещении мыши
+            const x = e.pageX - slider.offsetLeft;
+            const walk = x - startX;
+            slider.scrollLeft = scrollLeft - walk;
+        });
+    </script>
+    
+</body>
+
+
+</html>
