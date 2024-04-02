@@ -2704,6 +2704,10 @@ body {
     border-radius: 0;
   }
 
+  .popup-close {
+    top: 20px; /* Опустить изображение ниже */
+  }
+
   .city-list {
     columns: 1;
     flex-grow: 1;
@@ -2711,3 +2715,11 @@ body {
   }
 }
 
+.city-item {
+  transition-property: all;
+  color: #000;
+  display: block;
+  font-size: 16px;
+  line-height: 24px;
+  margin-bottom: 12px;
+}

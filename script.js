@@ -442,43 +442,43 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function getUserCity() {
         if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(
-            (position) => {
-              const lat = position.coords.latitude;
-              const lon = position.coords.longitude;
-      
-              fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`)
-                .then(response => response.json())
-                .then(data => {
-                  const city = data.address.city || data.address.town || 'Неизвестный город';
-                  document.getElementById('user-city').textContent = city;
-                  selectCityInPopup(city); // Новая функция для выделения города в popup
-                })
-                .catch(error => {
-                  console.error('Error fetching city:', error);
-                });
-            },
-            (error) => {
-              console.error('Error getting location:', error);
-            }
-          );
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+
+                    fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            const city = data.address.city || data.address.town || 'Неизвестный город';
+                            document.getElementById('user-city').textContent = city;
+                            selectCityInPopup(city); // Новая функция для выделения города в popup
+                        })
+                        .catch(error => {
+                            console.error('Error fetching city:', error);
+                        });
+                },
+                (error) => {
+                    console.error('Error getting location:', error);
+                }
+            );
         } else {
-          console.error('Geolocation is not supported by this browser.');
+            console.error('Geolocation is not supported by this browser.');
         }
-      }
-      
-      function selectCityInPopup(city) {
+    }
+
+    function selectCityInPopup(city) {
         const cityItems = document.querySelectorAll('.city-list li');
         cityItems.forEach(item => {
-          if (item.textContent.includes(city)) {
-            item.classList.add('selected');
-          } else {
-            item.classList.remove('selected');
-          }
+            if (item.textContent.includes(city)) {
+                item.classList.add('selected');
+            } else {
+                item.classList.remove('selected');
+            }
         });
-      }
-      
-      getUserCity();
+    }
+
+    getUserCity();
 
     document.querySelector('.navbar-location-wrapper').addEventListener('click', function () {
         const popup = document.getElementById('city-popup');
@@ -510,13 +510,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const cityList = document.querySelector('.city-list');
     const cityItems = cityList.querySelectorAll('li');
-    
+
     cityItems.forEach(item => {
-      item.addEventListener('click', () => {
-        cityItems.forEach(item => item.classList.remove('selected'));
-        item.classList.add('selected');
-        // Здесь можно добавить логику для обновления информации о выбранном городе
-      });
+        item.addEventListener('click', () => {
+            cityItems.forEach(item => item.classList.remove('selected'));
+            item.classList.add('selected');
+            // Здесь можно добавить логику для обновления информации о выбранном городе
+        });
     });
 
 });
