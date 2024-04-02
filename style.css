@@ -2705,7 +2705,12 @@ body {
   }
 
   .popup-close {
-    top: 20px; /* Опустить изображение ниже */
+    top: 50px;
+    right: 30px;
+  }
+
+  .popup-title {
+    margin-top: 30px;
   }
 
   .city-list {
