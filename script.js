@@ -480,43 +480,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     getUserCity();
 
-    document.querySelector('.navbar-location-wrapper').addEventListener('click', function () {
-        const popup = document.getElementById('city-popup');
-        popup.classList.add('show');
-        document.documentElement.classList.add('no-scroll'); // Добавляем класс 'no-scroll' к <html>
-    });
 
-    document.querySelector('.popup-close').addEventListener('click', function () {
-        const popup = document.getElementById('city-popup');
-        popup.classList.add('hide');
-        document.documentElement.classList.remove('no-scroll'); // Удаляем класс 'no-scroll' из <html>
-        setTimeout(function () {
-            popup.classList.remove('show', 'hide');
-        }, 300);
-    });
-
-    document.querySelector('.city-list').addEventListener('click', function (event) {
-        if (event.target.tagName === 'LI') {
-            const selectedCity = event.target.textContent;
-            document.getElementById('user-city').textContent = selectedCity;
-            const popup = document.getElementById('city-popup');
-            popup.classList.add('hide');
-            document.documentElement.classList.remove('no-scroll'); // Удаляем класс 'no-scroll' из <html>
-            setTimeout(function () {
-                popup.classList.remove('show', 'hide');
-            }, 300);
-        }
-    });
-
-    const cityList = document.querySelector('.city-list');
-    const cityItems = cityList.querySelectorAll('li');
-
-    cityItems.forEach(item => {
-        item.addEventListener('click', () => {
-            cityItems.forEach(item => item.classList.remove('selected'));
-            item.classList.add('selected');
-            // Здесь можно добавить логику для обновления информации о выбранном городе
-        });
-    });
-
+    
 });
