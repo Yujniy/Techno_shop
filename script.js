@@ -530,7 +530,12 @@ document.addEventListener('DOMContentLoaded', function () {
             startY = event.touches[0].clientY;
             popupHandle.style.transition = 'width 0.3s ease';
             popupHandle.style.width = '60px';
-        });
+
+            // Блокировка перезагрузки страницы при смахивании вниз
+            if (popup.classList.contains('active')) {
+                event.preventDefault();
+            }
+        }, { passive: false });
 
         // Обработчик события touchmove на попапе
         popupContent.addEventListener('touchmove', function (event) {
@@ -540,35 +545,49 @@ document.addEventListener('DOMContentLoaded', function () {
             offsetY = Math.min(Math.max(offsetY + deltaY, 0), window.innerHeight);
             popupContent.style.transform = `translateY(${offsetY}px)`;
             startY = currentY;
-
-            // Блокировка перезагрузки страницы при смахивании вниз
-            if (popup.classList.contains('active')) {
-                event.preventDefault();
-            }
-        }, { passive: false });
-
-        // Обработчик события touchend на попапе
-        popupContent.addEventListener('touchend', function () {
-            isDragging = false;
-            popupHandle.style.transition = 'width 0.3s ease';
-            popupHandle.style.width = '40px';
-            if (offsetY > window.innerHeight / 4) {
-                popupContent.style.transition = 'transform 0.3s ease';
-                popupContent.style.transform = 'translateY(100%)';
-                popup.classList.remove('active');
-                setTimeout(function () {
-                    popup.style.display = 'none';
-                    offsetY = 0;
-                    popupContent.style.transition = '';
-                }, 300);
-            } else {
-                popupContent.style.transition = 'transform 0.3s ease';
-                popupContent.style.transform = 'translateY(0)';
-                setTimeout(function () {
-                    offsetY = 0;
-                    popupContent.style.transition = '';
-                }, 300);
-            }
         });
+
+// Обработчик события touchend на попапе
+popupContent.addEventListener('touchend', function () {
+    isDragging = false;
+    popupHandle.style.transition = 'width 0.3s ease';
+    popupHandle.style.width = '40px';
+    if (offsetY > window.innerHeight / 4) {
+        popupContent.style.transition = 'transform 0.3s ease';
+        popupContent.style.transform = 'translateY(100%)';
+        popup.classList.remove('active');
+        setTimeout(function () {
+            popup.style.display = 'none';
+            offsetY = 0;
+            popupContent.style.transition = '';
+        }, 300);
+    } else {
+        popupContent.style.transition = 'transform 0.3s ease';
+        popupContent.style.transform = 'translateY(0)';
+        setTimeout(function () {
+            offsetY = 0;
+            popupContent.style.transition = '';
+        }, 300);
+    }
+});
+
+// Блокировка перезагрузки страницы при смахивании вниз
+let initialTouchY = 0;
+let currentTouchY = 0;
+
+popupContent.addEventListener('touchstart', function (event) {
+    if (popup.classList.contains('active')) {
+        initialTouchY = event.touches[0].clientY;
+    }
+});
+
+popupContent.addEventListener('touchmove', function (event) {
+    if (popup.classList.contains('active')) {
+        currentTouchY = event.touches[0].clientY;
+        if (currentTouchY > initialTouchY) {
+            event.preventDefault();
+        }
+    }
+}, { passive: false });
     }
 });
