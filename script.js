@@ -482,83 +482,93 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 document.addEventListener('DOMContentLoaded', function () {
-  const locationWrapper = document.querySelector('.navbar-location-wrapper');
-  const popup = document.getElementById('location-popup');
-  const popupContent = popup.querySelector('.popup-content');
-  const popupHandle = popup.querySelector('.popup-handle');
-  const closePopupButton = document.getElementById('close-popup');
-  const cityList = document.querySelector('.city-list');
-  let isDragging = false;
-  let startY;
-  let offsetY = 0;
+    const locationWrapper = document.querySelector('.navbar-location-wrapper');
+    const popup = document.getElementById('location-popup');
+    const popupContent = popup.querySelector('.popup-content');
+    const popupHandle = popup.querySelector('.popup-handle');
+    const closePopupButton = document.getElementById('close-popup');
+    const cityList = document.querySelector('.city-list');
+    let isDragging = false;
+    let startY;
+    let offsetY = 0;
 
-  locationWrapper.addEventListener('click', function () {
-    popup.style.display = 'block';
-    setTimeout(function () {
-      popup.classList.add('active');
-      popupContent.style.transform = 'translateY(0)';
-    }, 50);
-  });
+    // Проверяем, является ли устройство мобильным
+    const isMobileDevice = window.innerWidth < 768;
 
-  closePopupButton.addEventListener('click', function () {
-    popup.classList.remove('active');
-    popupContent.style.transform = 'translateY(100%)';
-    setTimeout(function () {
-      popup.style.display = 'none';
-    }, 300);
-  });
+    if (isMobileDevice) {
+        locationWrapper.addEventListener('click', function () {
+            popup.style.display = 'block';
+            setTimeout(function () {
+                popup.classList.add('active');
+                popupContent.style.transform = 'translateY(0)';
+            }, 50);
+        });
 
-  cityList.addEventListener('click', function (event) {
-    if (event.target.tagName === 'LI') {
-      const selectedCity = event.target.textContent;
-      document.getElementById('user-city').textContent = selectedCity;
-      popup.classList.remove('active');
-      popupContent.style.transform = 'translateY(100%)';
-      setTimeout(function () {
-        popup.style.display = 'none';
-      }, 300);
+        closePopupButton.addEventListener('click', function () {
+            popup.classList.remove('active');
+            popupContent.style.transform = 'translateY(100%)';
+            setTimeout(function () {
+                popup.style.display = 'none';
+            }, 300);
+        });
+
+        cityList.addEventListener('click', function (event) {
+            if (event.target.tagName === 'LI') {
+                const selectedCity = event.target.textContent;
+                document.getElementById('user-city').textContent = selectedCity;
+                popup.classList.remove('active');
+                popupContent.style.transform = 'translateY(100%)';
+                setTimeout(function () {
+                    popup.style.display = 'none';
+                }, 300);
+            }
+        });
+
+        // Обработчик события touchstart на попапе
+        popupContent.addEventListener('touchstart', function (event) {
+            isDragging = true;
+            startY = event.touches[0].clientY;
+            popupHandle.style.transition = 'width 0.3s ease';
+            popupHandle.style.width = '60px';
+        });
+
+        // Обработчик события touchmove на попапе
+        popupContent.addEventListener('touchmove', function (event) {
+            if (!isDragging) return;
+            const currentY = event.touches[0].clientY;
+            const deltaY = currentY - startY;
+            offsetY = Math.min(Math.max(offsetY + deltaY, 0), window.innerHeight);
+            popupContent.style.transform = `translateY(${offsetY}px)`;
+            startY = currentY;
+
+            // Блокировка перезагрузки страницы при смахивании вниз
+            if (popup.classList.contains('active')) {
+                event.preventDefault();
+            }
+        }, { passive: false });
+
+        // Обработчик события touchend на попапе
+        popupContent.addEventListener('touchend', function () {
+            isDragging = false;
+            popupHandle.style.transition = 'width 0.3s ease';
+            popupHandle.style.width = '40px';
+            if (offsetY > window.innerHeight / 4) {
+                popupContent.style.transition = 'transform 0.3s ease';
+                popupContent.style.transform = 'translateY(100%)';
+                popup.classList.remove('active');
+                setTimeout(function () {
+                    popup.style.display = 'none';
+                    offsetY = 0;
+                    popupContent.style.transition = '';
+                }, 300);
+            } else {
+                popupContent.style.transition = 'transform 0.3s ease';
+                popupContent.style.transform = 'translateY(0)';
+                setTimeout(function () {
+                    offsetY = 0;
+                    popupContent.style.transition = '';
+                }, 300);
+            }
+        });
     }
-  });
-
-  // Обработчик события touchstart на попапе
-  popupContent.addEventListener('touchstart', function (event) {
-    isDragging = true;
-    startY = event.touches[0].clientY;
-    popupHandle.style.transition = 'width 0.3s ease';
-    popupHandle.style.width = '60px';
-  });
-
-  // Обработчик события touchmove на попапе
-  popupContent.addEventListener('touchmove', function (event) {
-    if (!isDragging) return;
-    const currentY = event.touches[0].clientY;
-    const deltaY = currentY - startY;
-    offsetY = Math.min(Math.max(offsetY + deltaY, 0), window.innerHeight);
-    popupContent.style.transform = `translateY(${offsetY}px)`;
-    startY = currentY;
-  });
-
-  // Обработчик события touchend на попапе
-  popupContent.addEventListener('touchend', function (event) {
-    isDragging = false;
-    popupHandle.style.transition = 'width 0.3s ease';
-    popupHandle.style.width = '40px';
-    if (offsetY > window.innerHeight / 4) {
-      popupContent.style.transition = 'transform 0.3s ease';
-      popupContent.style.transform = 'translateY(100%)';
-      popup.classList.remove('active');
-      setTimeout(function () {
-        popup.style.display = 'none';
-        offsetY = 0;
-        popupContent.style.transition = '';
-      }, 300);
-    } else {
-      popupContent.style.transition = 'transform 0.3s ease';
-      popupContent.style.transform = 'translateY(0)';
-      setTimeout(function () {
-        offsetY = 0;
-        popupContent.style.transition = '';
-      }, 300);
-    }
-  });
 });
