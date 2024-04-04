@@ -591,3 +591,28 @@ popupContent.addEventListener('touchmove', function (event) {
 }, { passive: false });
     }
 });
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const locationWrapper = document.querySelector('.navbar-location-wrapper');
+    const desktopPopup = document.getElementById('desktop-location-popup');
+    const closeDesktopPopupButton = document.getElementById('close-desktop-popup');
+    const desktopCityList = document.querySelector('.desktop-city-list');
+
+    locationWrapper.addEventListener('click', function () {
+        desktopPopup.classList.add('active');
+    });
+
+    closeDesktopPopupButton.addEventListener('click', function () {
+        desktopPopup.classList.remove('active');
+    });
+
+    desktopCityList.addEventListener('click', function (event) {
+        if (event.target.tagName === 'LI') {
+            const selectedCity = event.target.textContent;
+            document.getElementById('user-city').textContent = selectedCity;
+            desktopPopup.classList.remove('active');
+        }
+    });
+});
