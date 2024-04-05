@@ -14,6 +14,7 @@
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <script async src="https://script.click-chat.ru/chat.js?wid=e9a1cf48-f07c-41d8-b704-54f5007a08ab"></script>
   <link rel="stylesheet" href="./style.css">
 </head>
 <style>
@@ -55,31 +56,84 @@
 
   <div id="location-popup" class="popup">
     <div class="popup-content">
+      <img src="img/close.svg" alt="Close" class="popup-close" width="30" height="30">
+      <div class="popup-swipe-area"></div>
       <div class="popup-handle"></div>
-      <!-- Содержимое попапа -->
       <h2>Выберите город</h2>
       <ul class="city-list">
-        <li>Москва</li>
-        <li>Санкт-Петербург</li>
+        <li>Москва и область</li>
+        <li>Санкт-Петербург и ЛО</li>
+        <li>Барнаул</li>
+        <li>Владивосток</li>
+        <li>Воронеж</li>
         <li>Екатеринбург</li>
-        <!-- Добавьте другие города -->
+        <li>Иркутск</li>
+        <li>Казань</li>
+        <li>Кемерово</li>
+        <li>Краснодар</li>
+        <li>Красноярск</li>
+        <li>Нижний Новгород</li>
+        <li>Новокузнецк</li>
+        <li>Новосибирск</li>
+        <li>Омск</li>
+        <li>Пермь</li>
+        <li>Ростов-на-Дону</li>
+        <li>Самара</li>
+        <li>Сочи</li>
+        <li>Сургут</li>
+        <li>Томск</li>
+        <li>Тюмень</li>
+        <li>Уфа</li>
+        <li>Хабаровск</li>
+        <li>Челябинск</li>
       </ul>
-      <button id="close-popup">Закрыть</button>
     </div>
   </div>
-
-<div id="desktop-location-popup" class="desktop-popup">
-  <div class="desktop-popup-content">
-    <h2>Выберите город</h2>
-    <ul class="desktop-city-list">
-      <li>Москва</li>
-      <li>Санкт-Петербург</li>
-      <li>Екатеринбург</li>
-      <!-- Добавьте другие города -->
-    </ul>
-    <button id="close-desktop-popup">Закрыть</button>
+  <div id="desktop-location-popup" class="desktop-popup">
+    <div class="desktop-popup-content">
+      <div class="desktop-popup-header">
+        <h2>Выберите город</h2>
+        <img src="img/close.svg" alt="Close" class="desktop-popup-close" width="30" height="30">
+      </div>
+      <div class="desktop-city-list-container">
+      <ul class="desktop-city-list">
+        <li>Москва и область</li>
+        <li>Санкт-Петербург и ЛО</li>
+        <li>Барнаул</li>
+        <li>Владивосток</li>
+        <li>Воронеж</li>
+        <li>Екатеринбург</li>
+        <li>Иркутск</li>
+      </ul>
+      <ul class="desktop-city-list">
+        <li>Казань</li>
+        <li>Кемерово</li>
+        <li>Краснодар</li>
+        <li>Красноярск</li>
+        <li>Нижний Новгород</li>
+        <li>Новокузнецк</li>
+        <li>Новосибирск</li>
+      </ul>
+      <ul class="desktop-city-list">
+        <li>Омск</li>
+        <li>Пермь</li>
+        <li>Ростов-на-Дону</li>
+        <li>Самара</li>
+        <li>Сочи</li>
+        <li>Сургут</li>
+        <li>Томск</li>
+      </ul>
+      <ul class="desktop-city-list">
+        <li>Тюмень</li>
+        <li>Уфа</li>
+        <li>Хабаровск</li>
+        <li>Челябинск</li>
+      </ul>
+    </div>
   </div>
 </div>
+
+
 
 
 
@@ -551,7 +605,7 @@
       </div>
 
 
-      
+
 
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"

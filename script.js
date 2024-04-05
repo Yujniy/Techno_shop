@@ -440,43 +440,68 @@ document.addEventListener('DOMContentLoaded', function () {
         centeredSlides: true,
     });
 
-    function getUserCity() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    const lat = position.coords.latitude;
-                    const lon = position.coords.longitude;
+function getUserCity() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
 
-                    fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`)
-                        .then(response => response.json())
-                        .then(data => {
-                            const city = data.address.city || data.address.town || 'Неизвестный город';
-                            document.getElementById('user-city').textContent = city;
-                            selectCityInPopup(city); // Новая функция для выделения города в popup
-                        })
-                        .catch(error => {
-                            console.error('Error fetching city:', error);
+                fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const city = data.address.city || data.address.town || 'Неизвестный город';
+                        document.getElementById('user-city').textContent = city;
+                        selectCityInPopup(city);
+
+                        const cityLists = document.querySelectorAll('.desktop-city-list');
+                        cityLists.forEach(cityList => {
+                            const cityItems = cityList.querySelectorAll('li');
+                            cityItems.forEach(item => {
+                                item.addEventListener('click', function () {
+                                    const selectedCity = this.textContent;
+                                    document.getElementById('user-city').textContent = selectedCity;
+                                    selectCityInPopup(selectedCity);
+                                    closeDesktopPopup();
+                                });
+                            });
                         });
-                },
-                (error) => {
-                    console.error('Error getting location:', error);
-                }
-            );
-        } else {
-            console.error('Geolocation is not supported by this browser.');
-        }
-    }
-
-    function selectCityInPopup(city) {
-        const cityItems = document.querySelectorAll('.city-list li');
-        cityItems.forEach(item => {
-            if (item.textContent.includes(city)) {
-                item.classList.add('selected');
-            } else {
-                item.classList.remove('selected');
+                    })
+                    .catch(error => {
+                        console.error('Error fetching city:', error);
+                    });
+            },
+            (error) => {
+                console.error('Error getting location:', error);
             }
-        });
+        );
+    } else {
+        console.error('Geolocation is not supported by this browser.');
     }
+}
+
+function selectCityInPopup(city) {
+    const cityItems = document.querySelectorAll('.city-list li, .desktop-city-list li');
+    cityItems.forEach(item => {
+        if (item.textContent.trim() === city) {
+            item.classList.add('selected');
+        } else {
+            item.classList.remove('selected');
+        }
+    });
+
+    const selectedCityElement = document.querySelector('.city-list li.selected, .desktop-city-list li.selected');
+    if (selectedCityElement) {
+        selectedCityElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+}
+
+
+
+function closeDesktopPopup() {
+    const desktopPopup = document.getElementById('desktop-location-popup');
+    desktopPopup.style.display = 'none';
+}
 
     getUserCity();
 });
@@ -486,7 +511,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const popup = document.getElementById('location-popup');
     const popupContent = popup.querySelector('.popup-content');
     const popupHandle = popup.querySelector('.popup-handle');
-    const closePopupButton = document.getElementById('close-popup');
     const cityList = document.querySelector('.city-list');
     let isDragging = false;
     let startY;
@@ -496,36 +520,38 @@ document.addEventListener('DOMContentLoaded', function () {
     const isMobileDevice = window.innerWidth < 768;
 
     if (isMobileDevice) {
-        locationWrapper.addEventListener('click', function () {
-            popup.style.display = 'block';
-            setTimeout(function () {
-                popup.classList.add('active');
-                popupContent.style.transform = 'translateY(0)';
-            }, 50);
-        });
+locationWrapper.addEventListener('click', function () {
+    popup.style.display = 'block';
+    document.body.classList.add('no-scroll'); // Добавляем класс 'no-scroll' к <body>
+    setTimeout(function () {
+        popup.classList.add('active');
+        popupContent.style.transform = 'translateY(0)';
+    }, 50);
+});
 
-        closePopupButton.addEventListener('click', function () {
-            popup.classList.remove('active');
-            popupContent.style.transform = 'translateY(100%)';
-            setTimeout(function () {
-                popup.style.display = 'none';
-            }, 300);
-        });
 
-        cityList.addEventListener('click', function (event) {
-            if (event.target.tagName === 'LI') {
-                const selectedCity = event.target.textContent;
-                document.getElementById('user-city').textContent = selectedCity;
-                popup.classList.remove('active');
-                popupContent.style.transform = 'translateY(100%)';
-                setTimeout(function () {
-                    popup.style.display = 'none';
-                }, 300);
-            }
-        });
 
-        // Обработчик события touchstart на попапе
-        popupContent.addEventListener('touchstart', function (event) {
+
+cityList.addEventListener('click', function (event) {
+    if (event.target.tagName === 'LI') {
+        const selectedCity = event.target.textContent;
+        document.getElementById('user-city').textContent = selectedCity;
+        selectCityInPopup(selectedCity); // Добавьте эту строку
+        popup.classList.remove('active');
+        popupContent.style.transform = 'translateY(100%)';
+        setTimeout(function () {
+            popup.style.display = 'none';
+            document.body.classList.remove('no-scroll');
+        }, 300);
+    }
+});
+
+
+
+        const popupSwipeArea = document.querySelector('.popup-swipe-area');
+
+        // Обработчик события touchstart на .popup-swipe-area
+        popupSwipeArea.addEventListener('touchstart', function (event) {
             isDragging = true;
             startY = event.touches[0].clientY;
             popupHandle.style.transition = 'width 0.3s ease';
@@ -537,8 +563,8 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }, { passive: false });
 
-        // Обработчик события touchmove на попапе
-        popupContent.addEventListener('touchmove', function (event) {
+        // Обработчик события touchmove на .popup-swipe-area
+        popupSwipeArea.addEventListener('touchmove', function (event) {
             if (!isDragging) return;
             const currentY = event.touches[0].clientY;
             const deltaY = currentY - startY;
@@ -547,17 +573,18 @@ document.addEventListener('DOMContentLoaded', function () {
             startY = currentY;
         });
 
-// Обработчик события touchend на попапе
-popupContent.addEventListener('touchend', function () {
+        // Обработчик события touchend на .popup-swipe-area
+popupSwipeArea.addEventListener('touchend', function () {
     isDragging = false;
     popupHandle.style.transition = 'width 0.3s ease';
     popupHandle.style.width = '40px';
-    if (offsetY > window.innerHeight / 4) {
+    if (offsetY > 100) {
         popupContent.style.transition = 'transform 0.3s ease';
         popupContent.style.transform = 'translateY(100%)';
         popup.classList.remove('active');
         setTimeout(function () {
             popup.style.display = 'none';
+            document.body.classList.remove('no-scroll'); // Удаляем класс 'no-scroll' из <body>
             offsetY = 0;
             popupContent.style.transition = '';
         }, 300);
@@ -571,24 +598,49 @@ popupContent.addEventListener('touchend', function () {
     }
 });
 
-// Блокировка перезагрузки страницы при смахивании вниз
-let initialTouchY = 0;
-let currentTouchY = 0;
+const popupClose = document.querySelector('.popup-close');
 
-popupContent.addEventListener('touchstart', function (event) {
-    if (popup.classList.contains('active')) {
-        initialTouchY = event.touches[0].clientY;
-    }
+popupClose.addEventListener('click', function () {
+  popupContent.style.transition = 'transform 0.3s ease';
+  popupContent.style.transform = 'translateY(100%)';
+  popup.classList.remove('active');
+  setTimeout(function () {
+    popup.style.display = 'none';
+    document.body.classList.remove('no-scroll');
+    popupContent.style.transition = '';
+  }, 300);
 });
 
-popupContent.addEventListener('touchmove', function (event) {
-    if (popup.classList.contains('active')) {
-        currentTouchY = event.touches[0].clientY;
-        if (currentTouchY > initialTouchY) {
-            event.preventDefault();
+
+        // Блокировка перезагрузки страницы при смахивании вниз по верхней части попапа
+        let initialTouchY = 0;
+        let currentTouchY = 0;
+
+        const popupHandle = document.querySelector('.popup-handle');
+
+        function isSwipeAreaOrHandle(target) {
+            return target === popupSwipeArea || target === popupHandle;
         }
-    }
-}, { passive: false });
+
+        popupContent.addEventListener('touchstart', function (event) {
+            if (popup.classList.contains('active') && isSwipeAreaOrHandle(event.target)) {
+                initialTouchY = event.touches[0].clientY;
+            }
+        });
+
+        popupContent.addEventListener('touchmove', function (event) {
+            if (popup.classList.contains('active') && isSwipeAreaOrHandle(event.target)) {
+                currentTouchY = event.touches[0].clientY;
+                const deltaY = currentTouchY - initialTouchY;
+
+                if (deltaY > 0) {
+                    event.preventDefault();
+                }
+            }
+        }, { passive: false });
+
+
+
     }
 });
 
@@ -600,19 +652,42 @@ document.addEventListener('DOMContentLoaded', function () {
     const closeDesktopPopupButton = document.getElementById('close-desktop-popup');
     const desktopCityList = document.querySelector('.desktop-city-list');
 
-    locationWrapper.addEventListener('click', function () {
-        desktopPopup.classList.add('active');
-    });
+locationWrapper.addEventListener('click', function () {
+    desktopPopup.classList.add('active');
+    document.body.classList.add('no-scroll'); // Добавляем класс 'no-scroll' к <body>
+});
 
-    closeDesktopPopupButton.addEventListener('click', function () {
+
+
+
+document.addEventListener('click', function (event) {
+    if (!event.target.closest('.desktop-popup-content') && !event.target.closest('.navbar-location-wrapper')) {
         desktopPopup.classList.remove('active');
-    });
+        setTimeout(function () {
+            document.body.classList.remove('no-scroll');
+        }, 300);
+    }
+});
 
-    desktopCityList.addEventListener('click', function (event) {
-        if (event.target.tagName === 'LI') {
-            const selectedCity = event.target.textContent;
-            document.getElementById('user-city').textContent = selectedCity;
-            desktopPopup.classList.remove('active');
-        }
-    });
+const desktopPopupClose = document.querySelector('.desktop-popup-close');
+
+desktopPopupClose.addEventListener('click', function () {
+    desktopPopup.classList.remove('active');
+    setTimeout(function () {
+        document.body.classList.remove('no-scroll');
+    }, 300);
+});
+
+
+desktopCityList.addEventListener('click', function (event) {
+    if (event.target.tagName === 'LI') {
+        const selectedCity = event.target.textContent;
+        document.getElementById('user-city').textContent = selectedCity;
+        desktopPopup.classList.remove('active');
+        setTimeout(function () {
+            document.body.classList.remove('no-scroll'); // Удаляем класс 'no-scroll' из <body> после небольшой задержки
+        }, 30); // Задержка в 300 миллисекунд (настройте значение по своему усмотрению)
+    }
+});
+
 });

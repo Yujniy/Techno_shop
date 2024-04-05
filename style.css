@@ -2594,16 +2594,27 @@ body {
     padding: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: flex-start;
     transform: translateY(100%);
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-}
+  }
 
   .popup.active .popup-content {
     transform: translateY(0);
   }
+
+  .popup-swipe-area {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100px; /* Высота области для свайпа */
+  background-color: transparent;
+  z-index: 1;
+}
+
 
   .popup-handle {
     position: absolute;
@@ -2619,26 +2630,40 @@ body {
     transition: width 0.3s ease;
   }
 
+  .popup-content h2 {
+    margin-top: 15px;
+    text-align: center;
+    width: 100%;
+    font-weight: 700;
+  }
+
   .city-list {
     list-style-type: none;
     padding: 0;
-    text-align: center;
+    text-align: left;
+    max-height: calc(100% - 100px); /* Изменено значение максимальной высоты */
+    width: 100%; /* Добавлено значение ширины */
+    overflow-y: auto;
+    margin-top: 20px; /* Добавлен отступ сверху */
   }
 
   .city-list li {
     cursor: pointer;
     padding: 10px;
   }
-
-  .city-list li:hover {
-    background-color: #f0f0f0;
+  .no-scroll {
+    overflow: hidden !important;
+    height: 100%;
   }
-
-  .city-list li.selected {
-    background-color: #e0e0e0;
+  .popup-close {
+    cursor: pointer;
+    position: absolute;
+    top: 36px;
+    right: 20px;
+    z-index: 2;
   }
+  
 }
-
 
 
 @media screen and (min-width: 768px) {
@@ -2670,7 +2695,7 @@ body {
 
 .desktop-popup-content {
   width: 1000px;
-  height: 400px;
+  max-height: 80vh;
   background-color: white;
   padding: 20px;
   border-radius: 12px;
@@ -2678,29 +2703,90 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow-y: auto;
+}
+
+.desktop-city-list-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 20px;
 }
 
 .desktop-city-list {
   list-style-type: none;
   padding: 0;
-  text-align: center;
+  text-align: left;
+  width: 23%;
 }
 
 .desktop-city-list li {
   cursor: pointer;
-  padding: 10px;
+  padding: 5px 10px;
+  margin: 0;
 }
+
 
 .desktop-city-list li:hover {
-  background-color: #f0f0f0;
+  color: #ed5aae;
 }
 
-.desktop-city-list li.selected {
-  background-color: #e0e0e0;
+.desktop-popup-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+  position: relative;
 }
+
+.desktop-popup-header h2 {
+  text-align: center;
+  flex-grow: 1;
+}
+
+.desktop-popup-close {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+}
+
+.city-list li.selected,
+.desktop-city-list li.selected {
+    color: #ed5aae;
+}
+
 
 @media screen and (max-width: 767px) {
   .desktop-popup {
     display: none !important;
   }
+  
 }
+
+@media screen and (min-width: 768px) {
+  body {
+    position: relative;
+  }
+
+  .no-scroll {
+    overflow: hidden !important;
+    padding-right: 15px;
+  }
+
+  .no-scroll::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 15px;
+    height: 100%;
+    background-color: white;
+  }
+  .desktop-city-list li.selected {
+    color: #ed5aae;
+}
+}
+
