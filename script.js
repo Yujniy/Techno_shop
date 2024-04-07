@@ -685,9 +685,65 @@ desktopCityList.addEventListener('click', function (event) {
         document.getElementById('user-city').textContent = selectedCity;
         desktopPopup.classList.remove('active');
         setTimeout(function () {
-            document.body.classList.remove('no-scroll'); // Удаляем класс 'no-scroll' из <body> после небольшой задержки
-        }, 30); // Задержка в 300 миллисекунд (настройте значение по своему усмотрению)
+            document.body.classList.remove('no-scroll');
+        }, 30); 
     }
 });
 
+const buyButton = document.querySelector('.buy-button');
+buyButton.addEventListener('click', function () {
+  this.classList.add('in-cart');
+  this.textContent = 'В корзине';
 });
+
+const productBuyButtons = document.querySelectorAll('.iphone-buy-button, .Vivo-buy-button, .Realme-buy-button, .Samsung-buy-button');
+productBuyButtons.forEach(function (button) {
+  button.addEventListener('click', function () {
+    this.classList.add('in-cart');
+    this.textContent = 'В корзине';
+  });
+});
+
+const sliderBuyButtons = document.querySelectorAll('.realme-slider .realme-buy-button');
+sliderBuyButtons.forEach(function (button) {
+  button.addEventListener('click', function () {
+    this.classList.add('in-cart');
+    this.textContent = 'В корзине';
+  });
+});
+
+const mobileSliderBuyButtons = document.querySelectorAll('.realme-slider-mobile .realme-buy-button');
+mobileSliderBuyButtons.forEach(function (button) {
+  button.addEventListener('click', function () {
+    this.classList.add('in-cart');
+    this.textContent = 'В корзине';
+  });
+});
+
+const iphoneBuyButtonSlider = document.querySelector('.iphone-buy-button-slider');
+iphoneBuyButtonSlider.addEventListener('click', function () {
+  this.classList.add('in-cart');
+  this.textContent = 'В корзине';
+});
+
+const vivoBuyButtonSlider = document.querySelector('.vivo-buy-button-slider');
+vivoBuyButtonSlider.addEventListener('click', function () {
+  this.classList.add('in-cart');
+  this.textContent = 'В корзине';
+});
+
+const realmeBuyButtonSlider = document.querySelector('.realme-buy-button-slider');
+realmeBuyButtonSlider.addEventListener('click', function () {
+  this.classList.add('in-cart');
+  this.textContent = 'В корзине';
+});
+
+const samsungBuyButtonSlider = document.querySelector('.samsung-buy-button-slider');
+samsungBuyButtonSlider.addEventListener('click', function () {
+  this.classList.add('in-cart');
+  this.textContent = 'В корзине';
+});
+
+
+});
+

@@ -2790,3 +2790,31 @@ body {
 }
 }
 
+.buy-button,
+.iphone-buy-button,
+.Vivo-buy-button,
+.Realme-buy-button,
+.Samsung-buy-button,
+.realme-slider .realme-buy-button,
+.realme-slider-mobile .realme-buy-button,
+.iphone-buy-button-slider,
+.vivo-buy-button-slider,
+.realme-buy-button-slider,
+.samsung-buy-button-slider {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.buy-button.in-cart,
+.iphone-buy-button.in-cart,
+.Vivo-buy-button.in-cart,
+.Realme-buy-button.in-cart,
+.Samsung-buy-button.in-cart,
+.realme-slider .realme-buy-button.in-cart,
+.realme-slider-mobile .realme-buy-button.in-cart,
+.iphone-buy-button-slider.in-cart,
+.vivo-buy-button-slider.in-cart,
+.realme-buy-button-slider.in-cart,
+.samsung-buy-button-slider.in-cart {
+  background-color: green;
+  color: white;
+}
