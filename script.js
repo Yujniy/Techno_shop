@@ -744,6 +744,32 @@ samsungBuyButtonSlider.addEventListener('click', function () {
   this.textContent = 'В корзине';
 });
 
+function showNotification(message) {
+  const notificationContainer = document.querySelector('.notification-container');
+  const notification = document.createElement('div');
+  notification.classList.add('notification');
+  notification.textContent = message;
+  notificationContainer.appendChild(notification);
+
+  setTimeout(function () {
+    notification.classList.add('show');
+  }, 100);
+
+  setTimeout(function () {
+    notification.classList.remove('show');
+    setTimeout(function () {
+      notificationContainer.removeChild(notification);
+    }, 300);
+  }, 3000);
+}
+
+const buyButtons = document.querySelectorAll('.buy-button, .iphone-buy-button, .Vivo-buy-button, .Realme-buy-button, .Samsung-buy-button, .realme-slider .realme-buy-button, .realme-slider-mobile .realme-buy-button, .iphone-buy-button-slider, .vivo-buy-button-slider, .realme-buy-button-slider, .samsung-buy-button-slider');
+buyButtons.forEach(function (button) {
+  button.addEventListener('click', function () {
+    showNotification('Товар добавлен в корзину');
+  });
+});
+
 
 });
 
