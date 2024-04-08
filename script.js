@@ -690,64 +690,93 @@ desktopCityList.addEventListener('click', function (event) {
     }
 });
 
+const cartCountTop = document.querySelector('.cart-count-top');
+updateCartCountTopVisibility();
+
+
+function updateCartCountTop(count) {
+    cartCountTop.textContent = count;
+}
+
+function incrementCartCountTop() {
+    let currentCount = parseInt(cartCountTop.textContent);
+    updateCartCountTop(currentCount + 1);
+    updateCartCountTopVisibility();
+}
+
+function decrementCartCountTop() {
+    let currentCount = parseInt(cartCountTop.textContent);
+    updateCartCountTop(currentCount - 1);
+    updateCartCountTopVisibility();
+}
+
+
+function toggleCartButton(button) {
+    if (button.classList.contains('in-cart')) {
+        button.classList.remove('in-cart');
+        button.textContent = 'Купить';
+        decrementCartCountTop();
+    } else {
+        button.classList.add('in-cart');
+        button.textContent = 'В корзине';
+        incrementCartCountTop();
+    }
+}
+
 const buyButton = document.querySelector('.buy-button');
 buyButton.addEventListener('click', function () {
-  this.classList.add('in-cart');
-  this.textContent = 'В корзине';
+    toggleCartButton(this);
 });
 
 const productBuyButtons = document.querySelectorAll('.iphone-buy-button, .Vivo-buy-button, .Realme-buy-button, .Samsung-buy-button');
 productBuyButtons.forEach(function (button) {
-  button.addEventListener('click', function () {
-    this.classList.add('in-cart');
-    this.textContent = 'В корзине';
-  });
+    button.addEventListener('click', function () {
+        toggleCartButton(this);
+    });
 });
 
 const sliderBuyButtons = document.querySelectorAll('.realme-slider .realme-buy-button');
 sliderBuyButtons.forEach(function (button) {
-  button.addEventListener('click', function () {
-    this.classList.add('in-cart');
-    this.textContent = 'В корзине';
-  });
+    button.addEventListener('click', function () {
+        toggleCartButton(this);
+    });
 });
 
 const mobileSliderBuyButtons = document.querySelectorAll('.realme-slider-mobile .realme-buy-button');
 mobileSliderBuyButtons.forEach(function (button) {
-  button.addEventListener('click', function () {
-    this.classList.add('in-cart');
-    this.textContent = 'В корзине';
-  });
+    button.addEventListener('click', function () {
+        toggleCartButton(this);
+    });
 });
 
 const iphoneBuyButtonSlider = document.querySelector('.iphone-buy-button-slider');
 iphoneBuyButtonSlider.addEventListener('click', function () {
-  this.classList.add('in-cart');
-  this.textContent = 'В корзине';
+    toggleCartButton(this);
 });
 
 const vivoBuyButtonSlider = document.querySelector('.vivo-buy-button-slider');
 vivoBuyButtonSlider.addEventListener('click', function () {
-  this.classList.add('in-cart');
-  this.textContent = 'В корзине';
+    toggleCartButton(this);
 });
 
 const realmeBuyButtonSlider = document.querySelector('.realme-buy-button-slider');
 realmeBuyButtonSlider.addEventListener('click', function () {
-  this.classList.add('in-cart');
-  this.textContent = 'В корзине';
+    toggleCartButton(this);
 });
 
 const samsungBuyButtonSlider = document.querySelector('.samsung-buy-button-slider');
 samsungBuyButtonSlider.addEventListener('click', function () {
-  this.classList.add('in-cart');
-  this.textContent = 'В корзине';
+    toggleCartButton(this);
 });
 
-function showNotification(message) {
+
+function showNotification(message, type) {
   const notificationContainer = document.querySelector('.notification-container');
   const notification = document.createElement('div');
   notification.classList.add('notification');
+  if (type === 'removed') {
+    notification.classList.add('removed');
+  }
   notification.textContent = message;
   notificationContainer.appendChild(notification);
 
@@ -763,13 +792,26 @@ function showNotification(message) {
   }, 3000);
 }
 
+function updateCartCountTopVisibility() {
+    const count = parseInt(cartCountTop.textContent);
+    if (count === 0) {
+        cartCountTop.style.display = 'none';
+    } else {
+        cartCountTop.style.display = 'flex';
+    }
+}
+
+
 const buyButtons = document.querySelectorAll('.buy-button, .iphone-buy-button, .Vivo-buy-button, .Realme-buy-button, .Samsung-buy-button, .realme-slider .realme-buy-button, .realme-slider-mobile .realme-buy-button, .iphone-buy-button-slider, .vivo-buy-button-slider, .realme-buy-button-slider, .samsung-buy-button-slider');
 buyButtons.forEach(function (button) {
-  button.addEventListener('click', function () {
-    showNotification('Товар добавлен в корзину');
-  });
+    button.addEventListener('click', function () {
+        if (this.classList.contains('in-cart')) {
+            showNotification('Товар добавлен в корзину');
+        } else {
+            showNotification('Товар удален из корзины', 'removed');
+        }
+    });
 });
 
 
 });
-
