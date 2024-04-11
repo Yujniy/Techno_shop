@@ -715,21 +715,23 @@ const cartCountTop = document.querySelector('.cart-count-top');
 updateCartCountTopVisibility();
 
 
+
 function updateCartCountTop(count) {
     cartCountTop.textContent = count;
 }
 
 function incrementCartCountTop() {
-    let currentCount = parseInt(cartCountTop.textContent);
-    updateCartCountTop(currentCount + 1);
-    updateCartCountTopVisibility();
+  let currentCount = parseInt(cartCountTop.textContent);
+  updateCartCountTop(currentCount + 1);
+  updateCartCountTopVisibility();
 }
 
 function decrementCartCountTop() {
-    let currentCount = parseInt(cartCountTop.textContent);
-    updateCartCountTop(currentCount - 1);
-    updateCartCountTopVisibility();
+  let currentCount = parseInt(cartCountTop.textContent);
+  updateCartCountTop(currentCount - 1);
+  updateCartCountTopVisibility();
 }
+
 
 
 function toggleCartButton(button) {
@@ -743,6 +745,16 @@ function toggleCartButton(button) {
         incrementCartCountTop();
     }
 }
+
+function updateCartCountTopVisibility() {
+  const count = parseInt(cartCountTop.textContent);
+  if (count === 0) {
+    cartCountTop.style.display = 'none';
+  } else {
+    cartCountTop.style.display = 'flex';
+  }
+}
+
 
 const buyButton = document.querySelector('.buy-button');
 buyButton.addEventListener('click', function () {
