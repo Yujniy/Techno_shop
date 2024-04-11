@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Оранжево-черная полоса на темно-синем фоне</title>
+    <style>
+        body {
+            background-color: black;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            width: 50%;
+            height: 30px;
+            background-color: navy;
+            position: relative;
+            cursor: grab;
+        }
+        .container:active {
+            cursor: grabbing;
+        }
+        .stripe {
+            background-image: repeating-linear-gradient(
+                135deg,
+                #ff9900,
+                #ff9900 5px,
+                #000000 5px,
+                #000000 10px
+            );
+            height: 100%;
+            width: 0;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="stripe"></div>
+    </div>
+
+    <script>
+        const container = document.querySelector('.container');
+        const stripe = document.querySelector('.stripe');
+        let isDragging = false;
+
+        container.addEventListener('mousedown', (e) => {
+            isDragging = true;
+        });
+
+        container.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                const containerRect = container.getBoundingClientRect();
+                const width = Math.min(Math.max(e.clientX - containerRect.left, 0), containerRect.width);
+                stripe.style.width = `${width}px`;
+            }
+        });
+
+        window.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+    </script>
+</body>
+</html>

@@ -466,6 +466,17 @@ function getUserCity() {
                                 });
                             });
                         });
+
+                        const mobileCityList = document.querySelector('.city-list');
+                        const mobileCityItems = mobileCityList.querySelectorAll('li');
+                        mobileCityItems.forEach(item => {
+                            item.addEventListener('click', function () {
+                                const selectedCity = this.textContent;
+                                document.getElementById('user-city').textContent = selectedCity;
+                                selectCityInPopup(selectedCity);
+                                closeLocationPopup();
+                            });
+                        });
                     })
                     .catch(error => {
                         console.error('Error fetching city:', error);
@@ -479,6 +490,16 @@ function getUserCity() {
         console.error('Geolocation is not supported by this browser.');
     }
 }
+
+function closeLocationPopup() {
+    const popup = document.getElementById('location-popup');
+    popup.classList.remove('active');
+    document.body.classList.remove('no-scroll');
+    setTimeout(function () {
+        popup.style.display = 'none';
+    }, 500); 
+}
+
 
 function selectCityInPopup(city) {
     const cityItems = document.querySelectorAll('.city-list li, .desktop-city-list li');
